@@ -15,6 +15,8 @@ public class RadioBrowserAPI: ObservableObject {
 
     @Published public internal(set) var stations: [RadioBrowser.Station] = []
     @Published public internal(set) var isLoading: Bool = false
+    
+    @Published var country = Locale.current.regionCode!
 
     static var delegate: RadioBrowserDelegate?
 
@@ -25,10 +27,7 @@ public class RadioBrowserAPI: ObservableObject {
         stations(byCountryCode: Locale.current.regionCode!, order: .clickCount, reverse: true, limit: 50)
     }
     
-    public init(delegate: RadioBrowserDelegate? = nil, _ country: String = Locale.current.regionCode!) {
-        RadioBrowserAPI.delegate = delegate
-
-        /// Prefetch all stations by current region code
+    func updateWithNewRegion() {
         stations(byCountryCode: country, order: .clickCount, reverse: true, limit: 50)
     }
 }
