@@ -24,6 +24,13 @@ public class RadioBrowserAPI: ObservableObject {
         /// Prefetch all stations by current region code
         stations(byCountryCode: Locale.current.regionCode!, order: .clickCount, reverse: true, limit: 50)
     }
+    
+    public init(delegate: RadioBrowserDelegate? = nil, _ country: String = Locale.current.regionCode!) {
+        RadioBrowserAPI.delegate = delegate
+
+        /// Prefetch all stations by current region code
+        stations(byCountryCode: country, order: .clickCount, reverse: true, limit: 50)
+    }
 }
 
 public protocol RadioBrowserDelegate {
